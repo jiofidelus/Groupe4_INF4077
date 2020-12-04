@@ -62,6 +62,7 @@ const User = React.lazy(() => import("./views/users/User"));
 
 const Settings = React.lazy(() => import("./components/Settings/Settings"));
 const UsersList = React.lazy(() => import("./components/Settings/UserList"));
+const Carte = React.lazy(() => import("./components/Cartes/Carte"));
 
 const routes = [
   { path: "/", exact: true, name: "Acceuil" },
@@ -73,6 +74,7 @@ const routes = [
     component: UsersList,
   },
   { path: "/parametres", name: "Parametres", component: Settings },
+  { path: "/cartes", name: "Carte", component: Carte },
 
   { path: "/theme", name: "Theme", component: Colors, exact: true },
   { path: "/theme/colors", name: "Colors", component: Colors },

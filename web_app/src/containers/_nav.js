@@ -12,7 +12,7 @@ export default [
   {
     _tag: "CSidebarNavItem",
     name: "Consulter la carte",
-    to: "/carte",
+    to: "/cartes",
     icon: "cil-drop",
   },
   {
