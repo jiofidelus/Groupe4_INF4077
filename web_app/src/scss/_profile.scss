@@ -1,0 +1,20 @@
+.image_outer_container {
+  margin-top: auto;
+  margin-bottom: auto;
+  border-radius: 50%;
+  position: relative;
+}
+
+.image_inner_container {
+  border-radius: 50%;
+  padding: 5px;
+  background: #833ab4;
+  background: -webkit-linear-gradient(to bottom, #3366ff, #6dd5ed, #1565c0);
+  background: linear-gradient(to bottom, #3366ff, #6dd5ed, #1565c0);
+}
+.image_inner_container img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  border: 5px solid white;
+}
