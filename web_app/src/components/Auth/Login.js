@@ -17,13 +17,16 @@ const Login = (props) => {
           <div className="row no-gutters">
             <div className="col-md-6">
               <img
-                src="icons/cholera.jpg"
+                src="icons/armee_camerounaise.jpg"
                 alt="login"
                 className="login-card-img"
               />
             </div>
             <div className="col-md-6">
               <div className="card-body">
+                <div className="brand-wrapper">
+                  <img src="icons/helios.jpg" alt="logo" className="logo" />
+                </div>
                 <p className="login-card-description">
                   Connectez-vous à votre compte
                 </p>
@@ -86,7 +89,7 @@ const Login = (props) => {
                   <a href="#!" className="text-reset"></a>
                 </p>
                 <nav className="login-card-footer-nav">
-                  <span className="ml-1">SURVEILLANCE DU CHOLERA</span>
+                  <span className="ml-1">HELIOS DASHBOARD MONITORING.</span>
                 </nav>
               </div>
             </div>

@@ -64,10 +64,12 @@ const Settings = React.lazy(() => import("./components/Settings/Settings"));
 const UsersList = React.lazy(() => import("./components/Settings/UserList"));
 const Carte = React.lazy(() => import("./components/Cartes/Carte"));
 
+const Login = React.lazy(() => import("./components/Auth/Login"));
+
 const routes = [
   { path: "/", exact: true, name: "Acceuil" },
   { path: "/acceuil", name: "Tableau de Bord", component: Dashboard },
-
+  { path: "/login", name: "Tableau de Bord", component: Login },
   {
     path: "/parametres/utilisateurs",
     name: "Listes des utilisateurs",
