@@ -1,14 +1,19 @@
 /** @format */
 
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { login } from "../../../actions/authActions";
 
 const Login = (props) => {
-  const [email, setEmail] = useState("");
+  console.log(props);
+  const { loading, error } = props;
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const onSubmit = (event) => {};
+  const onSubmit = (event) => {
+    event.preventDefault();
+    props.login(username, password);
+  };
 
   return (
     <div className="d-flex align-items-center min-vh-100 py-3 py-md-0">
@@ -22,6 +27,7 @@ const Login = (props) => {
                 className="login-card-img"
               />
             </div>
+
             <div className="col-md-6">
               <div className="card-body">
                 <p className="login-card-description">
@@ -29,17 +35,17 @@ const Login = (props) => {
                 </p>
                 <form onSubmit={(event) => onSubmit(event)}>
                   <div className="form-group">
-                    <label htmlFor="email" className="sr-only">
+                    <label htmlFor="username" className="sr-only">
                       Email
                     </label>
                     <input
-                      type="email"
-                      name="email"
-                      id="email"
+                      type="username"
+                      name="username"
+                      id="username"
                       className={`form-control ${error ? "is-invalid" : ""} `}
-                      placeholder="addresse email"
-                      value={email}
-                      onChange={(value) => setEmail(value.target.value)}
+                      placeholder="Votre pseudo"
+                      value={username}
+                      onChange={(value) => setUsername(value.target.value)}
                     />
                   </div>
                   <div className="form-group mb-4">
@@ -97,4 +103,9 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+const mapStateToProps = ({ authState }) => ({
+  loading: authState.loading,
+  error: authState.error,
+});
+
+export default connect(mapStateToProps, { login })(Login);

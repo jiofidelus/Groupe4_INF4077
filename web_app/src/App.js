@@ -1,6 +1,7 @@
 /** @format */
 
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,7 +28,7 @@ const routeGuard = (Component, props, token) => ({ match }) => {
 };
 
 const App = (props) => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const { isSignedIn } = props;
 
   const renderApp = () => {
     // return <Spinner />;
@@ -57,4 +58,8 @@ const App = (props) => {
   return renderApp();
 };
 
-export default App;
+const mapStateToProps = ({ authState }) => ({
+  isSignedIn: authState.isSignedIn,
+});
+
+export default connect(mapStateToProps, {})(App);
