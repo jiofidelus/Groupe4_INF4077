@@ -2,17 +2,18 @@
 
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { login } from "../../../actions/authActions";
+import { login } from "../../actions/authActions";
 
 const Login = (props) => {
-  console.log(props);
-  const { loading, error } = props;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = (event) => {
     event.preventDefault();
-    props.login(username, password);
+    console.log(username);
+    console.log(password);
   };
 
   return (
@@ -22,18 +23,20 @@ const Login = (props) => {
           <div className="row no-gutters">
             <div className="col-md-6">
               <img
-                src="icons/cholera.jpg"
+                src="icons/armee_camerounaise.jpg"
                 alt="login"
                 className="login-card-img"
               />
             </div>
-
             <div className="col-md-6">
               <div className="card-body">
+                <div className="brand-wrapper">
+                  <img src="icons/helios.jpg" alt="logo" className="logo" />
+                </div>
                 <p className="login-card-description">
                   Connectez-vous à votre compte
                 </p>
-                <form onSubmit={(event) => onSubmit(event)}>
+                <form>
                   <div className="form-group">
                     <label htmlFor="username" className="sr-only">
                       Email
@@ -43,7 +46,7 @@ const Login = (props) => {
                       name="username"
                       id="username"
                       className={`form-control ${error ? "is-invalid" : ""} `}
-                      placeholder="Votre pseudo"
+                      placeholder="votre pseudo"
                       value={username}
                       onChange={(value) => setUsername(value.target.value)}
                     />
@@ -76,10 +79,9 @@ const Login = (props) => {
                     </div>
                   ) : (
                     <button
-                      type="submit"
+                      onClick={onSubmit}
                       name="login"
                       id="login"
-                      type="submit"
                       className="btn btn-block login-btn mb-4"
                     >
                       Connectez-vous
@@ -92,7 +94,7 @@ const Login = (props) => {
                   <a href="#!" className="text-reset"></a>
                 </p>
                 <nav className="login-card-footer-nav">
-                  <span className="ml-1">SURVEILLANCE DU CHOLERA</span>
+                  <span className="ml-1">HELIOS DASHBOARD MONITORING.</span>
                 </nav>
               </div>
             </div>
@@ -104,8 +106,9 @@ const Login = (props) => {
 };
 
 const mapStateToProps = ({ authState }) => ({
-  loading: authState.loading,
-  error: authState.error,
+  token: authState.token,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, {
+  login,
+})(Login);

@@ -7,8 +7,10 @@ import {
   CImg,
 } from "@coreui/react";
 import React from "react";
+import { connect } from "react-redux";
+import { logout } from "../actions/authActions";
 
-const TheHeaderDropdown = () => {
+const TheHeaderDropdown = (props) => {
   return (
     <CDropdown inNav className="c-header-nav-items mx-2" direction="down">
       <CDropdownToggle className="c-header-nav-link" caret={false}>
@@ -28,7 +30,7 @@ const TheHeaderDropdown = () => {
           <CIcon name="cil-bell" className="mfe-2" />
           Compte
         </CDropdownItem>
-        <CDropdownItem>
+        <CDropdownItem onClick={() => props.logout()}>
           <CIcon name="cil-envelope-open" className="mfe-2" />
           Deconnexion
         </CDropdownItem>
@@ -37,4 +39,6 @@ const TheHeaderDropdown = () => {
   );
 };
 
-export default TheHeaderDropdown;
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, { logout })(TheHeaderDropdown);
