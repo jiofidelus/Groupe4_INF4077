@@ -1,24 +1,32 @@
 # backend_app build with Django 3.1.4
 
-In the project directory (Groupe4_INF4077), run:
+    In the project directory (Groupe4_INF4077)
 
-## source env/bin/activate
+## create a virtual environment
 
-This will activate the virtual environment to run the backend_app. Then move to
-"backend_app" directory and run:
+    $ virtualenv env -p python3
 
-### createdb -T template0 cholera_epidemie
+## activate the virtual environment
 
-create a empty "cholera_epidemie" database
+    $ source env/bin/activate
 
-#### createuser -W cholera_epidemie_user
+## install dependencies
 
-create the "cholera_epidemie" database user with password 'INF4077'
+    $ pip3 install -r requirements.txt
 
-##### psql cholera_epidemie < cholera_epidemie.psql
+## create a empty "cholera_epidemie" database
 
-import the "cholera_epidemie.psql" database file
+    $ createdb -T template0 cholera_epidemie
 
-###### python3 manage.py runserver
+## create the "cholera_epidemie" database user with password 'INF4077'
 
-To start run the django server
+    $ createuser -W cholera_epidemie_user
+
+## import the "cholera_epidemie.psql" database file
+
+    $ psql cholera_epidemie < cholera_epidemie.psql
+
+## start run the django server
+
+    $ python3 manage.py runserver
+
