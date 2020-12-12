@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -126,15 +127,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = '/media/'
+
+MEDIA_URL = '/media/'
+
+
 # REST Framework
-REST_FRAMEWORK  = {
-    'DEFAULT_PERMISSION_CLASSES' : (
-        'rest_framework.permissions.IsAuthenticated' ,
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
     ),
-    'DEFAULT_AUTHENTICATION_CLASSES' : (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication' ,
-        'rest_framework.authentication.SessionAuthentication' ,
-        'rest_framework.authentication.BasicAuthentication' ,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
 }
 
@@ -147,4 +153,4 @@ REST_FRAMEWORK  = {
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
-    )
+)

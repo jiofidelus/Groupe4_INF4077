@@ -3,3 +3,8 @@
 exportdb.sh
 backend_app/__pycache__/
 env/
+
+user/__pycache__/
+user/migrations/__pycache__/
+
+
