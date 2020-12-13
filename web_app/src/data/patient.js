@@ -1,0 +1,38 @@
+export default [
+  {
+    photo: "regis.png",
+    noms: "ATEMENGUE MOAFEMBE",
+    prenoms: "Regis",
+    age: 26,
+    telephones: "694169369",
+    ville: "Yaounde",
+    status: "Cas suspect",
+  },
+  {
+    photo: "regis.png",
+    noms: "ATEMENGUE MOAFEMBE",
+    prenoms: "Regis",
+    age: 26,
+    telephones: "694169369",
+    ville: "Yaounde",
+    status: "Cas suspect",
+  },
+  {
+    photo: "regis.png",
+    noms: "ATEMENGUE MOAFEMBE",
+    prenoms: "Regis",
+    age: 26,
+    telephones: "694169369",
+    ville: "Yaounde",
+    status: "Cas suspect",
+  },
+  {
+    photo: "regis.png",
+    noms: "ATEMENGUE MOAFEMBE",
+    prenoms: "Regis",
+    age: 26,
+    telephones: "694169369",
+    ville: "Yaounde",
+    status: "Cas suspect",
+  },
+];

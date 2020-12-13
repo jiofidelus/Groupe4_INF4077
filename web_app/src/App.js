@@ -36,7 +36,7 @@ const App = (props) => {
       <HashRouter>
         <React.Suspense fallback={loading}>
           <Switch>
-            {isSignedIn ? (
+            {true ? (
               <Route
                 path="/"
                 name="Home"

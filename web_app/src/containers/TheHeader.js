@@ -13,7 +13,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 // routes config
 import routes from "../routes";
-import { TheHeaderDropdown, TheHeaderDropdownNotif } from "./index";
+import { TheHeaderDropdown } from "./index";
 
 const TheHeader = () => {
   const dispatch = useDispatch();
@@ -59,7 +59,6 @@ const TheHeader = () => {
       </CHeaderNav>
 
       <CHeaderNav className="px-3">
-        <TheHeaderDropdownNotif />
         <TheHeaderDropdown />
       </CHeaderNav>
 

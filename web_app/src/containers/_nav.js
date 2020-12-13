@@ -22,7 +22,7 @@ export default [
   {
     _tag: "CSidebarNavItem",
     name: "Enregister un cas",
-    to: "/enregister_un_cas",
+    to: "/nouveau",
     icon: "cil-speedometer",
   },
   {

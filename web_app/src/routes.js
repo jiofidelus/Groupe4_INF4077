@@ -66,10 +66,41 @@ const Carte = React.lazy(() => import("./components/Cartes/Carte"));
 
 const Login = React.lazy(() => import("./components/Auth/Login"));
 
+const PatientCreate = React.lazy(() =>
+  import("./components/Patients/PatientCreate")
+);
+
+const Statistiques = React.lazy(() =>
+  import("./components/Statistiques/Statistiques")
+);
+
+const PatientDetails = React.lazy(() =>
+  import("./components/Patients/PatientDetails")
+);
+
 const routes = [
   { path: "/", exact: true, name: "Acceuil" },
   { path: "/acceuil", name: "Tableau de Bord", component: Dashboard },
+  { path: "/acceuil", name: "Tableau de Bord", component: Dashboard },
   { path: "/login", name: "Tableau de Bord", component: Login },
+  {
+    path: "/patients/:id",
+    name: "informations du patient",
+    component: PatientDetails,
+  },
+
+  {
+    path: "/nouveau",
+    name: "Ajouter un patient",
+    component: PatientCreate,
+  },
+
+  {
+    path: "/statistiques",
+    name: "Statistiques",
+    component: Statistiques,
+  },
+
   {
     path: "/parametres/utilisateurs",
     name: "Listes des utilisateurs",
