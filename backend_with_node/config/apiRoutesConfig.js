@@ -6,6 +6,7 @@ const ConfigApiRoutes = (app) => {
   require('../routes/users')(app);
   require('../routes/patient')(app);
   require('../routes/suivie')(app);
+  require('../routes/region')(app);
 };
 
 module.exports = ConfigApiRoutes;

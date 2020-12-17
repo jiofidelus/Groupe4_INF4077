@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, Sequelize) => {
   const Position = sequelize.define('position', {
-    idSuivie: {
+    idPostion: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,

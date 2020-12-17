@@ -130,3 +130,50 @@ exports.delete_patient = async (req, res, next) => {
     return res.status(500).send({ errorMessage: error });
   }
 };
+
+exports.get_status_patient = async (req, res, next) => {
+  try {
+    const suspect = await Patient.findAndCountAll({
+      include: [
+        {
+          model: Status,
+          where: {
+            idStatus: 1,
+          },
+        },
+      ],
+    });
+
+    const declares = await Patient.findAndCountAll({
+      include: [
+        {
+          model: Status,
+          where: {
+            idStatus: 2,
+          },
+        },
+      ],
+    });
+
+    const horsdanger = await Patient.findAndCountAll({
+      include: [
+        {
+          model: Status,
+          where: {
+            idStatus: 3,
+          },
+        },
+      ],
+    });
+
+    setTimeout(() => {
+      res.status(200).send({
+        suspect: suspect.count,
+        declares: declares.count,
+        horsdanger: horsdanger.count,
+      });
+    }, 2000);
+  } catch (error) {
+    return res.status(500).send({ errorMessage: error });
+  }
+};

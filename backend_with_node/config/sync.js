@@ -25,6 +25,7 @@ Suivie.belongsTo(Patient);
 
 Patient.hasOne(EndPosition);
 Patient.belongsTo(Region);
+Region.hasMany(Patient);
 Structure.hasMany(User);
 User.belongsTo(Structure);
 Patient.belongsTo(Status);
