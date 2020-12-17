@@ -1,17 +1,17 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
-from .models import UserProfil
+from .models import UserProfile
 
 
-class UserProfilSerializer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserProfil
+        model = UserProfile
         fields = ['photo', 'contact', 'address']
 
 
 class UserSerializer(serializers.ModelSerializer):
-    profil = UserProfilSerializer()
+    profile = UserProfileSerializer()
 
     class Meta:
         model = User

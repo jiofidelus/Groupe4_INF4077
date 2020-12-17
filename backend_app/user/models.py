@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class UserProfil(models.Model):
+class UserProfile(models.Model):
     user = models.OneToOneField(
         'auth.User', related_name='profil', on_delete=models.CASCADE)
     medicalStructure = models.ForeignKey(

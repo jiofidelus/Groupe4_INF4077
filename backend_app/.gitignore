@@ -7,4 +7,7 @@ env/
 user/__pycache__/
 user/migrations/__pycache__/
 
+patient/__pycache__/
+patient/migrations/__pycache__/
+
 

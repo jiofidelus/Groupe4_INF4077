@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'user',
+    'patient',
 ]
 
 MIDDLEWARE = [
@@ -144,10 +145,10 @@ REST_FRAMEWORK = {
     ),
 }
 
-# # Jason Web Token
-# JWT_AUTH = {
-#     'JWT_RESPONSE_PAYLOAD_HANDLER': 'backend_app.utils.my_jwt_response_handler'
-# }
+# Jason Web Token
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'backend_app.utils.my_jwt_response_handler'
+}
 
 # Cors configuration
 CORS_ORIGIN_ALLOW_ALL = True
