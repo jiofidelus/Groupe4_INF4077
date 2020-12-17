@@ -7,7 +7,6 @@ const {
   Region,
   EndPosition,
 } = require('../config/sync');
-const Sequelize = require('sequelize');
 const path = require('path');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
