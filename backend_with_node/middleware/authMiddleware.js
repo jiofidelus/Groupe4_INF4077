@@ -43,14 +43,12 @@ const getScopesLists = (scopesArray) => {
 };
 
 exports.generateToken = (user) => {
-  const scopes = getScopesLists(user.role.scopes);
   const options = {
     algorithm: process.env.ALGORITHM,
     expiresIn: '24h',
     issuer: process.env.ISSUER,
     subject: user.email,
-    audience: scopes,
   };
 
-  return jwt.sign({}, process.env.JWT_SECRET, options);
+  return jwt.sign({ user }, process.env.JWT_SECRET, options);
 };

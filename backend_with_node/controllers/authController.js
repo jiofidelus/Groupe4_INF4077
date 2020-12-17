@@ -1,7 +1,7 @@
 /** @format */
 
 require('dotenv').config({ path: './variables.env' });
-const { User, Role, Scope } = require('../config/sync');
+const { User } = require('../config/sync');
 const { generateToken } = require('../middleware/authMiddleware');
 const { delayResponse } = require('../utils/shared');
 const jwt = require('jsonwebtoken');
@@ -48,13 +48,8 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    let connected_users = [];
-
-    const io = res.io;
-    const redis = res.redis;
 
     let existingUser = await User.findOne({
-      include: [{ model: Role, include: [{ model: Scope }] }],
       where: { email },
     });
 
@@ -72,7 +67,6 @@ exports.login = async (req, res) => {
       delayResponse(() =>
         res.status(200).json({
           token: token,
-          role: existingUser.role.abbreviation,
           user: userInfo,
         })
       );
@@ -84,6 +78,7 @@ exports.login = async (req, res) => {
       );
     }
   } catch (error) {
+    console.log(error);
     delayResponse(() =>
       res.status(500).send({
         error: 'il ya erreur ici sur la connexion',

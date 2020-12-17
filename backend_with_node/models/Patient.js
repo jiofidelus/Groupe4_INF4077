@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     names: DataTypes.STRING,
     surnames: DataTypes.STRING,
-    sexe: DataTypes.STRING,
+    sexe: DataTypes.STRING(1),
     picture: {
-      type: DataTypes.STRING(1),
+      type: DataTypes.STRING,
     },
-    userPatientArchive: {
+    patientIdArchive: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       unique: true,
