@@ -1,14 +1,15 @@
 /** @format */
 
 module.exports = (sequelize, Sequelize) => {
-  const Position = sequelize.define('position', {
-    idSuivie: {
+  const Status = sequelize.define('status', {
+    idStatus: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    libellePositon: Sequelize.STRING,
-    description: Sequelize.TEXT,
+    libelleStatut: Sequelize.STRING,
+    statut: Sequelize.BOOLEAN,
   });
-  return Position;
+
+  return Status;
 };
