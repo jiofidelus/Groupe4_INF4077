@@ -1,0 +1,44 @@
+{
+  "name": "backend-with-node",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "server": "nodemon ./bin/www --ignore tests",
+    "client": "cd ../web_app && npm run start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "connect-session-sequelize": "^7.0.4",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.7.0",
+    "http-errors": "~1.6.3",
+    "jade": "^1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "mkdirp": "^1.0.4",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.2",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "pug": "2.0.0-beta11",
+    "redis": "^3.0.2",
+    "sequelize": "^6.3.5",
+    "sharp": "^0.26.3",
+    "socket.io": "^3.0.3",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "eslint": "^7.14.0",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.6",
+    "sequelize-cli": "^6.2.0"
+  }
+}
