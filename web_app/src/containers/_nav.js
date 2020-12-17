@@ -3,7 +3,7 @@ export default [
     _tag: "CSidebarNavItem",
     name: "Tableau de Bord",
     to: "/acceuil",
-    icon: "cil-speedometer",
+    fontIcon: "fas fa-home",
   },
   {
     _tag: "CSidebarNavTitle",
@@ -13,7 +13,7 @@ export default [
     _tag: "CSidebarNavItem",
     name: "Consulter la carte",
     to: "/cartes",
-    icon: "cil-drop",
+    fontIcon: "fas fa-map-marker",
   },
   {
     _tag: "CSidebarNavTitle",
@@ -23,7 +23,7 @@ export default [
     _tag: "CSidebarNavItem",
     name: "Enregister un cas",
     to: "/nouveau",
-    icon: "cil-speedometer",
+    fontIcon: "fas fa-user-injured",
   },
   {
     _tag: "CSidebarNavTitle",
@@ -33,7 +33,7 @@ export default [
     _tag: "CSidebarNavItem",
     name: "Consulter les statisques",
     to: "/statistiques",
-    icon: "cil-speedometer",
+    fontIcon: "fas fa-chart-bar",
   },
   ,
 ];

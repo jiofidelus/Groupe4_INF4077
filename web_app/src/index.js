@@ -1,3 +1,4 @@
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import React from "react";
 import "react-app-polyfill/ie11"; // For IE 11 support
 import "react-app-polyfill/stable";

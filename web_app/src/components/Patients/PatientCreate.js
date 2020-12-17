@@ -22,9 +22,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useRef } from "react";
+import Webcam from "react-webcam";
 
 const PatientCreate = () => {
   const photoElt = useRef();
+
+  const webCamRef = useRef();
+
+  const capture = () => {
+    console.log(webCamRef.current);
+  };
+
+  const videoConstraints = {
+    width: 1280,
+    height: 720,
+    facingMode: "user",
+  };
 
   return (
     <CCard>
@@ -63,6 +76,7 @@ const PatientCreate = () => {
                                   icon={faCamera}
                                   size="lg"
                                   color="blue"
+                                  onClick={() => photoElt.current.click()}
                                 />
                                 <FontAwesomeIcon
                                   cursor="pointer"
@@ -197,14 +211,16 @@ const PatientCreate = () => {
                 </CFormGroup>
                 <CFormGroup row>
                   <CCol sm="4">
-                    <input
-                      type="file"
-                      size="md"
-                      hidden
-                      id="photo"
-                      placeholder="photo"
+                    <Webcam
+                      audio={false}
+                      height={350}
+                      ref={webCamRef}
+                      screenshotFormat="image/jpeg"
+                      width={350}
+                      videoConstraints={videoConstraints}
                     />
                   </CCol>
+                  <button onClick={capture}>Capture photo</button>
                 </CFormGroup>
               </CCol>
             </CRow>

@@ -9,6 +9,8 @@ import {
   CSubheader,
   CToggler,
 } from "@coreui/react";
+import { faHome, faUserCog } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 // routes config
@@ -51,10 +53,16 @@ const TheHeader = () => {
 
       <CHeaderNav className="d-md-down-none mr-auto">
         <CHeaderNavItem className="px-3">
-          <CHeaderNavLink to="/acceuil">Tableau de Bord</CHeaderNavLink>
+          <CHeaderNavLink to="/acceuil">
+            <FontAwesomeIcon className="mr-2" icon={faHome} />
+            Tableau de Bord
+          </CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
-          <CHeaderNavLink to="/parametres">Parametres</CHeaderNavLink>
+          <CHeaderNavLink to="/parametres">
+            <FontAwesomeIcon className="mr-2" icon={faUserCog} />
+            Parametres
+          </CHeaderNavLink>
         </CHeaderNavItem>
       </CHeaderNav>
 

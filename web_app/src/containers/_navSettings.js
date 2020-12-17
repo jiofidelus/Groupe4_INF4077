@@ -1,20 +1,16 @@
+/** @format */
+
 export default [
   {
     _tag: "CSidebarNavItem",
-    name: "Parametres",
+    name: "Votre Compteee",
     to: "/parametres",
-    icon: "cil-settings",
+    fontIcon: "fas fa-cog",
   },
   {
     _tag: "CSidebarNavItem",
     name: "Utilisateurs",
     to: "/parametres/utilisateurs",
-    icon: "cil-user",
-  },
-  {
-    _tag: "CSidebarNavItem",
-    name: "Roles",
-    to: "/parametres/roles",
-    icon: "cil-user",
+    fontIcon: "fas fa-user-cog",
   },
 ];
