@@ -1,10 +1,19 @@
 import { CCard, CCardBody, CCardGroup, CCardHeader } from "@coreui/react";
 import { CChartBar, CChartDoughnut } from "@coreui/react-chartjs";
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { getStatOne } from "../../actions/patientActions";
 
-const Statistiques = () => {
+const Statistiques = (props) => {
+  const { statistiques, getStatOne, stats } = props;
+
+  useEffect(() => {
+    getStatOne();
+  }, [getStatOne]);
+
   return (
     <CCardGroup columns className="cols-2">
+      {console.log(stats, "THE STAT")}
       <CCard>
         <CCardHeader>Cas par regions</CCardHeader>
         <CCardBody>
@@ -14,21 +23,10 @@ const Statistiques = () => {
               {
                 label: "Nombre patients",
                 backgroundColor: "#f87979",
-                data: [40, 20, 50, 12, 45, 25, 45, 20, 52, 23],
+                data: stats.data,
               },
             ]}
-            labels={[
-              "CENTRE",
-              "EST",
-              "SUD",
-              "SUD-OUEST",
-              "NORD-OUEST",
-              "NORD",
-              "EXTRENE NORD",
-              "ADAMAOUA",
-              "LITTORAL",
-              "OUEST",
-            ]}
+            labels={stats.labels}
             options={{
               tooltips: {
                 enabled: true,
@@ -62,4 +60,9 @@ const Statistiques = () => {
   );
 };
 
-export default Statistiques;
+const mapStateToProps = ({ patientState }) => ({
+  statistiques: patientState.statistiques,
+  stats: patientState.stats,
+});
+
+export default connect(mapStateToProps, { getStatOne })(Statistiques);

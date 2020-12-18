@@ -200,5 +200,8 @@ exports.send_message = (req, res) => {
     .then((message) =>
       res.status(200).send({ message: `message envoye ${message}` })
     )
-    .catch((error) => res.status(500).send({ errorMessage: error }));
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send({ errorMessage: error });
+    });
 };

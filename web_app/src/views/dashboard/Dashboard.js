@@ -18,20 +18,17 @@ import { connect } from "react-redux";
 import { fetchPatients } from "../../actions/patientActions";
 import { BUCKET_URL } from "../../config";
 import { fieldCas, getBadge } from "../../utils/DataTable";
-import WidgetPatient from "../widgets/WidgetPatient";
 
 const Dashboard = (props) => {
   const { patients, fetchPatients, loading } = props;
 
   useEffect(() => {
-    if (patients.length === 0) {
-      fetchPatients();
-    }
-  }, [patients, fetchPatients]);
+    fetchPatients();
+  }, [fetchPatients]);
 
   return (
     <>
-      <WidgetPatient />
+      {/* <WidgetPatient /> */}
       <CRow>
         <CCol>
           {loading ? (

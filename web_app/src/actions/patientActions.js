@@ -9,6 +9,9 @@ import {
   FETCH_PATIENT_DETAILS,
   FETCH_PATIENT_DETAIL_FAIL,
   FETCH_PATIENT_DETAIL_SUCCESS,
+  GET_STATISTIQUES,
+  GET_STATISTIQUES_FAIL,
+  GET_STATISTIQUES_SUCCESS,
   SEND_MESSAGE_SUCCESS,
 } from "./type";
 
@@ -52,3 +55,15 @@ export const createPatient = (data) => async (dispatch) => {
     dispatch({ type: CREATE_PATIENT_FAIL, payload: error });
   }
 };
+
+export const getStatOne = (_) => async (dispatch) => {
+  dispatch({ type: GET_STATISTIQUES });
+  try {
+    const response = await api.get("/regions/statone");
+    dispatch({ type: GET_STATISTIQUES_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: GET_STATISTIQUES_FAIL, payload: error });
+  }
+};
+
+export const getStateTwo = (_) => async (dispatch) => {};

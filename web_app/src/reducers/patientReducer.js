@@ -8,6 +8,9 @@ import {
   FETCH_PATIENT_DETAILS,
   FETCH_PATIENT_DETAIL_FAIL,
   FETCH_PATIENT_DETAIL_SUCCESS,
+  GET_STATISTIQUES,
+  GET_STATISTIQUES_FAIL,
+  GET_STATISTIQUES_SUCCESS,
   SEND_MESSAGE_SUCCESS,
 } from "../actions/type";
 
@@ -19,9 +22,16 @@ const INITIAL_STATE = {
   patients: [],
   patient: null,
   message: "",
+  statLoader: false,
+  statistiques: [],
+  stats: {
+    data: [],
+    labels: [],
+  },
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log(action);
   switch (action.type) {
     case FETCH_PATIENTS:
       return { ...state, loading: true };
@@ -66,7 +76,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         patients: [action.payload, ...state.patients],
-        isLoadingCreate: false,
+        loadingCreate: false,
       };
     }
     case CREATE_PATIENT_FAIL: {
@@ -75,6 +85,31 @@ export default (state = INITIAL_STATE, action) => {
         loadingCreate: false,
       };
     }
+    case GET_STATISTIQUES:
+      return {
+        ...state,
+        statLoader: true,
+      };
+    case GET_STATISTIQUES_SUCCESS: {
+      let one = [];
+      let two = [];
+      action.payload.map((item) => {
+        one = [...one, item.PatientCount];
+        two = [...two, item.libelleRegion];
+      });
+
+      return {
+        ...state,
+        statistiques: action.payload,
+        stats: { ...state.stats, data: one, labels: two },
+        statLoader: false,
+      };
+    }
+    case GET_STATISTIQUES_FAIL:
+      return {
+        ...state,
+        statLoader: false,
+      };
     default:
       return state;
   }

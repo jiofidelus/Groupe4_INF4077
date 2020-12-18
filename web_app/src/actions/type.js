@@ -33,3 +33,9 @@ export const CHECK_TOKEN_VALIDITY_FAIL = "check_token_validity_fail";
 export const CHECK_PROFILE = "check_profile";
 export const FETCH_USERS_SUCCESS = "fetch_users_success";
 export const FETCH_ROLES_SUCCESS = "fetch_roles_success";
+
+export const GET_STATISTIQUES = "get_statistiques";
+export const GET_STATISTIQUES_SUCCESS = "get_statistiques_success";
+export const GET_STATISTIQUES_FAIL = "get_statistques_fail";
+
+export const GET_STATISTIQUE_ROUND = "get_statistique_round";

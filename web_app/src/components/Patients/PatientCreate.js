@@ -265,8 +265,8 @@ const PatientCreate = (props) => {
                       >
                         <option value="1">YAOUNDE</option>
                         <option value="2">BERTOUA</option>
-                        <option value="4">DOUALA</option>
                         <option value="3">EBOLOWA</option>
+                        <option value="4">DOUALA</option>
                         <option value="5">MAROUA</option>
                         <option value="6">GAROUA</option>
                         <option value="7">NGAOUNDERE</option>
