@@ -26,7 +26,7 @@ exports.create_patient = async (req, res, next) => {
     const newPatient = await Patient.create(patientData);
 
     if (newPatient) {
-      const idArchive = newPatient.personnelIdArchive;
+      const idArchive = newPatient.patientIdArchive;
       const pathArchivesPatient = `${pathArchive}/${idArchive}`;
       if (!fs.existsSync(pathArchivesPatient)) {
         mkdirp.sync(pathArchivesPatient);
@@ -60,10 +60,12 @@ exports.read_patients = async (req, res, next) => {
     });
 
     patients
-      ? res.status(200).send({
-          total: patients.count,
-          data: patients.rows,
-        })
+      ? setTimeout(() => {
+          res.status(200).send({
+            total: patients.count,
+            data: patients.rows,
+          });
+        }, 3000)
       : res.status(500).send('erreur sur la requete');
   } catch (error) {
     res.status(500).send(error);

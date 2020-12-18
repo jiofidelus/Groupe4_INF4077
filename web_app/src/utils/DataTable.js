@@ -27,10 +27,22 @@ export const fieldCas = [
     filter: false,
   },
   "photo",
-  "noms",
-  "prenoms",
-  "age",
-  "telephones",
+  {
+    key: "names",
+    label: "noms",
+  },
+  {
+    key: "surnames",
+    label: "prenoms",
+  },
+  {
+    key: "old",
+    label: "age",
+  },
+  {
+    key: "phones",
+    label: "prenoms",
+  },
   "ville",
   "status",
   {
@@ -49,31 +61,47 @@ export const fieldSuivie = [
     _style: { width: "1%" },
     filter: false,
   },
-  "Date et Heure",
+  {
+    key: "date",
+    label: "Date et Heure",
+  },
 
   {
-    key: "description",
+    key: "Description",
     label: "description",
     _style: { width: "25%" },
   },
   {
-    key: "deshydratation",
+    key: "dehydrationLevel",
     label: "deshydratation",
     _style: { width: "15%" },
   },
   {
-    key: "Niveau de selles",
+    key: "selleLevel",
     label: "Niveau de selles",
     _style: { width: "15%" },
   },
   {
-    key: "Niveau de vomissements",
+    key: "vomitingLevel",
     label: "Niveau de vomissements",
     _style: { width: "15%" },
   },
   {
-    key: "Niveau de diarhree",
+    key: "diahreeLevel",
     label: "Niveau de diarhree",
     _style: { width: "15%" },
   },
 ];
+
+export const getBadge = (position) => {
+  switch (position) {
+    case 1:
+      return "warning";
+    case 2:
+      return "danger";
+    case 3:
+      return "success";
+    default:
+      return "primary";
+  }
+};

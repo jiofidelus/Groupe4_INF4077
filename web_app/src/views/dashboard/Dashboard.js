@@ -1,4 +1,5 @@
 import {
+  CBadge,
   CButton,
   CCard,
   CCardBody,
@@ -12,69 +13,110 @@ import {
 } from "@coreui/react";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import Patient from "../../data/patient";
-import { fieldCas } from "../../utils/DataTable";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchPatients } from "../../actions/patientActions";
+import { BUCKET_URL } from "../../config";
+import { fieldCas, getBadge } from "../../utils/DataTable";
 import WidgetPatient from "../widgets/WidgetPatient";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+  const { patients, fetchPatients, loading } = props;
+
+  useEffect(() => {
+    if (patients.length === 0) {
+      fetchPatients();
+    }
+  }, [patients, fetchPatients]);
+
   return (
     <>
       <WidgetPatient />
       <CRow>
         <CCol>
-          <CCard>
-            <CCardHeader>
-              <h3>Listes des Cas</h3>
-            </CCardHeader>
-            <CCardBody>
-              <CDataTable
-                pagination
-                items={Patient}
-                hover
-                sorter
-                tableFilter
-                columnFilter
-                clickableRows
-                striped
-                bordered
-                fields={fieldCas}
-                scopedSlots={{
-                  Numero: (_, index) => <td>{++index}</td>,
-                  photo: (item) => (
-                    <td>
-                      <div className="c-avatar">
-                        <CImg
-                          src={`images/${item.photo}`}
-                          className="c-avatar-img"
-                          alt="photo patient"
-                        />
-                      </div>
-                    </td>
-                  ),
-                  actions: ({ path }, index) => {
-                    return (
-                      <td className="py-2">
-                        <div className="d-flex justify-content-between">
-                          <CLink key={index} target="_blank">
-                            <CButton to="/patients/1" color="info" size="sm">
-                              <FontAwesomeIcon className="mr-1" icon={faEye} />
-                              Consulter les donnees
-                            </CButton>
-                          </CLink>
+          {loading ? (
+            <div className="spinner-border spinner-boder-xl" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          ) : (
+            <CCard>
+              <CCardHeader>
+                <h3>Listes des Cas</h3>
+              </CCardHeader>
+              <CCardBody>
+                <CDataTable
+                  pagination
+                  items={patients.data}
+                  hover
+                  sorter
+                  tableFilter
+                  columnFilter
+                  clickableRows
+                  striped
+                  bordered
+                  fields={fieldCas}
+                  scopedSlots={{
+                    Numero: (_, index) => <td>{++index}</td>,
+                    photo: (item) => (
+                      <td>
+                        <div className="c-avatar">
+                          <CImg
+                            src={
+                              item.picture
+                                ? `${BUCKET_URL}/patients/${item.patientIdArchive}/${item.picture}`
+                                : `${BUCKET_URL}/default/user.png`
+                            }
+                            className="c-avatar-img"
+                            alt="admin@bootstrapmaster.com"
+                          />
                         </div>
                       </td>
-                    );
-                  },
-                }}
-              />
-            </CCardBody>
-            <CCardFooter></CCardFooter>
-          </CCard>
+                    ),
+                    ville: (item) => <td>{item.region.libelleRegion}</td>,
+
+                    status: (item) => (
+                      <td>
+                        <CBadge color={getBadge(item.status.idStatus)}>
+                          {item.status.libelleStatut}
+                        </CBadge>
+                      </td>
+                    ),
+                    actions: (item, index) => {
+                      return (
+                        <td className="py-2">
+                          <div className="d-flex justify-content-between">
+                            <CLink key={index} target="_blank">
+                              <CButton
+                                to={`/patients/${item.idPatient}`}
+                                color="info"
+                                size="sm"
+                              >
+                                <FontAwesomeIcon
+                                  className="mr-1"
+                                  icon={faEye}
+                                />
+                                Consulter les donnees
+                              </CButton>
+                            </CLink>
+                          </div>
+                        </td>
+                      );
+                    },
+                  }}
+                />
+              </CCardBody>
+              <CCardFooter></CCardFooter>
+            </CCard>
+          )}
         </CCol>
       </CRow>
     </>
   );
 };
 
-export default Dashboard;
+const mapStateToProps = ({ patientState }) => ({
+  loading: patientState.loading,
+  patients: patientState.patients,
+});
+
+export default connect(mapStateToProps, { fetchPatients })(Dashboard);

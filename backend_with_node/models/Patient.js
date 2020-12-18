@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     phones: DataTypes.STRING,
     poids: DataTypes.INTEGER,
+    old: DataTypes.INTEGER,
     admissionDate: DataTypes.DATE,
     location: DataTypes.JSON,
   });
