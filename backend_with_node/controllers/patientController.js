@@ -12,6 +12,7 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const sharp = require('sharp');
 const { setTimeout } = require('timers');
+require('dotenv').config();
 
 exports.create_patient = async (req, res, next) => {
   const patientData = req.body;
@@ -176,4 +177,23 @@ exports.get_status_patient = async (req, res, next) => {
   } catch (error) {
     return res.status(500).send({ errorMessage: error });
   }
+};
+
+exports.send_message = (req, res) => {
+  const message = req.body.message;
+  const phone = req.body.phone;
+  const client = require('twilio')(
+    process.env.ACCOUUNT_SID,
+    process.env.AUTH_TOKEN
+  );
+  client.messages
+    .create({
+      body: message,
+      from: process.env.PHONE_NUMBER,
+      to: phone,
+    })
+    .then((message) =>
+      res.status(200).send({ message: `message envoye ${message}` })
+    )
+    .catch((error) => res.status(500).send({ errorMessage: error }));
 };

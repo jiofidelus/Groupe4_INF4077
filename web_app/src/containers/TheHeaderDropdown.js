@@ -26,7 +26,7 @@ const TheHeaderDropdown = (props) => {
         <CDropdownItem header tag="div" color="light" className="text-center">
           <strong>REGIS ATEMENGUE</strong>
         </CDropdownItem>
-        <CDropdownItem>
+        <CDropdownItem to="parametres">
           <CIcon name="cil-bell" className="mfe-2" />
           Compte
         </CDropdownItem>
