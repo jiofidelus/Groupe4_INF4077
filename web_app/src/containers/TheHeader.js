@@ -1,4 +1,3 @@
-import CIcon from "@coreui/icons-react";
 import {
   CBreadcrumbRouter,
   CHeader,
@@ -48,7 +47,7 @@ const TheHeader = () => {
         onClick={toggleSidebar}
       />
       <CHeaderBrand className="mx-auto d-lg-none" to="/">
-        <CIcon name="logo" height="48" alt="Logo" />
+        <h3>GROUPE 4</h3>
       </CHeaderBrand>
 
       <CHeaderNav className="d-md-down-none mr-auto">

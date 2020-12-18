@@ -1,10 +1,11 @@
 /** @format */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { TokenValidity } from "./actions/authActions";
 import "./scss/style.scss";
 
 const loading = (
@@ -20,7 +21,7 @@ const TheLayout = React.lazy(() => import("./containers/TheLayout"));
 const Login = React.lazy(() => import("./views/pages/login/Login"));
 
 const routeGuard = (Component, props, token) => ({ match }) => {
-  if (true) {
+  if (token) {
     return <Component match={match} {...props} />;
   } else {
     return <Component match={match} {...props} />;
@@ -28,7 +29,20 @@ const routeGuard = (Component, props, token) => ({ match }) => {
 };
 
 const App = (props) => {
-  const { isSignedIn } = props;
+  const { isSignedIn, token } = props;
+
+  const checkTokenValid = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      props.TokenValidity();
+    } else {
+      localStorage.clear();
+    }
+  };
+
+  useEffect(() => {
+    checkTokenValid();
+  }, []);
 
   const renderApp = () => {
     // return <Spinner />;
@@ -36,17 +50,17 @@ const App = (props) => {
       <HashRouter>
         <React.Suspense fallback={loading}>
           <Switch>
-            {true ? (
+            {isSignedIn ? (
               <Route
                 path="/"
                 name="Home"
-                render={routeGuard(TheLayout, props, "token")}
+                render={routeGuard(TheLayout, props, token)}
               />
             ) : (
               <Route
                 path="/"
                 name="Login Page"
-                render={routeGuard(Login, props, "token")}
+                render={routeGuard(Login, props, token)}
               />
             )}
           </Switch>
@@ -60,6 +74,7 @@ const App = (props) => {
 
 const mapStateToProps = ({ authState }) => ({
   isSignedIn: authState.isSignedIn,
+  token: authState.token,
 });
 
-export default connect(mapStateToProps, {})(App);
+export default connect(mapStateToProps, { TokenValidity })(App);
