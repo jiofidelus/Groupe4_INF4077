@@ -1,4 +1,7 @@
 import {
+  CREATE_PATIENT,
+  CREATE_PATIENT_FAIL,
+  CREATE_PATIENT_SUCCESS,
   FETCH_PATIENTS,
   FETCH_PATIENTS_FAIL,
   FETCH_PATIENTS_SUCCESS,
@@ -11,6 +14,7 @@ import {
 const INITIAL_STATE = {
   loading: false,
   loadindDetails: false,
+  loadingCreate: false,
   error: null,
   patients: [],
   patient: null,
@@ -51,6 +55,26 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loadindDetails: false, error: action.payload };
     case SEND_MESSAGE_SUCCESS:
       return { ...state, message: action.payload };
+
+    case CREATE_PATIENT: {
+      return {
+        ...state,
+        loadingCreate: true,
+      };
+    }
+    case CREATE_PATIENT_SUCCESS: {
+      return {
+        ...state,
+        patients: [action.payload, ...state.patients],
+        isLoadingCreate: false,
+      };
+    }
+    case CREATE_PATIENT_FAIL: {
+      return {
+        ...state,
+        loadingCreate: false,
+      };
+    }
     default:
       return state;
   }

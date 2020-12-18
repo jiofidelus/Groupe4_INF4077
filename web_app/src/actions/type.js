@@ -11,3 +11,7 @@ export const FETCH_PATIENT_DETAIL_SUCCESS = "fetch_patient_detail_success";
 export const FETCH_PATIENT_DETAIL_FAIL = "fetch_patient_detail_fail";
 
 export const SEND_MESSAGE_SUCCESS = "send_message_success";
+
+export const CREATE_PATIENT = "create_patient";
+export const CREATE_PATIENT_SUCCESS = "create_patient_success";
+export const CREATE_PATIENT_FAIL = "create_patient_create_fail";

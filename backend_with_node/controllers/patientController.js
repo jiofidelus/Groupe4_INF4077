@@ -12,16 +12,25 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const sharp = require('sharp');
 const { setTimeout } = require('timers');
+const { decodeBase64Image } = require('../utils/shared');
 require('dotenv').config();
 
 exports.create_patient = async (req, res, next) => {
+  var imageBuffer = decodeBase64Image(req.body.file);
   const patientData = req.body;
-  const file = req.file;
   const pathArchive = path.resolve('public/archives/patients');
 
+  let filename = Date.now() + '.jpg';
+
+  fs.writeFile(
+    `./${pathArchive}/${filename}`,
+    imageBuffer.data,
+    function (err) {}
+  );
+
   try {
-    if (file) {
-      patientData.picture = req.file.filename;
+    if (filename) {
+      patientData.picture = filename;
     }
     const newPatient = await Patient.create(patientData);
 
@@ -31,18 +40,12 @@ exports.create_patient = async (req, res, next) => {
       if (!fs.existsSync(pathArchivesPatient)) {
         mkdirp.sync(pathArchivesPatient);
       }
-      if (req.file) {
-        await sharp(req.file.path)
-          .resize({
-            width: 200,
-            height: 200,
-          })
-          .jpeg({
-            quality: 90,
-          })
-          .toFile(`${pathArchivesPatient}/${req.file.filename}`);
-        fs.unlinkSync(req.file.path);
-      }
+
+      fs.writeFile(
+        `${pathArchivesPatient}/${filename}`,
+        imageBuffer.data,
+        function (err) {}
+      );
     }
     setTimeout(() => {
       res.status(200).send(newPatient);
