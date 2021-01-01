@@ -34,9 +34,11 @@ function shouldHeaderBeShown(route) {
   const routeName = route.state
     ? route.state.routes[route.state.index].name
     : 'Dashboard';
+
+  console.log(routeName);
   switch (routeName) {
     case 'Dashboard':
-      return true;
+      return false;
     case 'Statistiques':
       return false;
     case 'Maps':

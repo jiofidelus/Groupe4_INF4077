@@ -36,8 +36,7 @@ const HomeTabs = ({navigation, route}) => {
         },
       })}
       activeColor={Colors.color0}
-      initialRouteName="Home"
-      showLabel={true}>
+      initialRouteName="Home">
       <Tab.Screen
         name="Dashboard"
         options={{title: 'Tableau de Bord'}}

@@ -29,7 +29,7 @@ const HomeStack = ({navigation, route}) => {
         />
         <Stack.Screen
           name="AddPatient"
-          options={{headerShown: false}}
+          options={{headerShown: false, title: 'Enregister patient'}}
           component={AddPatient}
         />
       </Stack.Navigator>
