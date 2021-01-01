@@ -6,6 +6,7 @@ import {
 import React from 'react';
 import LoadingScreen from '../common/LoadingScreen';
 import AuthStack from './AuthStack';
+import HomeTabs from './HomeTabs';
 
 const Stack = createStackNavigator();
 
@@ -30,9 +31,9 @@ function getHeaderTitle(route) {
 function shouldHeaderBeShown(route) {
   const routeName = route.state
     ? route.state.routes[route.state.index].name
-    : 'Dashbaoard';
+    : 'Dashboard';
   switch (routeName) {
-    case 'Dashbaoard':
+    case 'Dashboard':
       return false;
     case 'Statistiques':
       return false;
@@ -40,31 +41,42 @@ function shouldHeaderBeShown(route) {
       return false;
     case 'Notification':
       return false;
-    case 'Plus':
+    case 'Profile':
       return false;
   }
 }
 
-const renderApp = () => {
-  if (false) {
-    return <LoadingScreen />;
-  } else {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator
-          headerMode="float"
-          aninmation="fade"
-          screenOptions={{
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-          initialRouteName="Auth">
-          <Stack.Screen
-            options={{headerShown: false}}
-            name="Auth"
-            component={AuthStack}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+const Routes = (props) => {
+  const renderApp = () => {
+    if (false) {
+      return <LoadingScreen />;
+    } else {
+      return (
+        <NavigationContainer>
+          <Stack.Navigator
+            headerMode="float"
+            aninmation="fade"
+            screenOptions={{
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+            initialRouteName="Home">
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Auth"
+              component={AuthStack}
+            />
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Home"
+              component={HomeTabs}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
+    }
+  };
+
+  return renderApp();
 };
+
+export default Routes;

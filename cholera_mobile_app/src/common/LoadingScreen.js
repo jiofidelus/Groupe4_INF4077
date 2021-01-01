@@ -1,7 +1,8 @@
 //import AsyncStorage from '@react-native-community/async-storage';
 import React from 'react';
 import {ActivityIndicator, View} from 'react-native';
-import {Colors} from './Color';
+import {Colors} from './Colors';
+
 // const clearAll = async () => {
 //   try {
 //     await AsyncStorage.clear();

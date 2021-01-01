@@ -6,43 +6,39 @@
  * @flow strict-local
  */
 
-import {Button, Input, Layout} from '@ui-kitten/components';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {Button, Input, ScrollView, StyleSheet, Text, View} from 'react-native';
 
 const LoginScreen = () => (
   <ScrollView
     contentContainerStyle={{
       flex: 1,
     }}>
-    <Layout style={{display: 'flex', flex: 1, margin: 25}}>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text style={{fontSize: 18, fontFamily: 'Ranchers-Regular'}}>
-          CHOLERA MONITORING{' '}
-        </Text>
-      </View>
-      <View style={{flex: 2}}>
-        <Text style={{fontSize: 16}}>Connectez vous a votre compte</Text>
-        <Input
-          size="large"
-          style={styles.inputStyle}
-          placeholder="Entrez votre email"
-        />
-        <Input
-          size="large"
-          style={styles.inputStyle}
-          secureTextEntry
-          placeholder="Entrez votre mot de passe"
-        />
-        <Button> Connectez vous</Button>
-      </View>
-    </Layout>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <Text style={{fontSize: 18, fontFamily: 'Ranchers-Regular'}}>
+        CHOLERA MONITORING{' '}
+      </Text>
+    </View>
+    <View style={{flex: 2}}>
+      <Text style={{fontSize: 16}}>Connectez vous a votre compte</Text>
+      <Input
+        size="large"
+        style={styles.inputStyle}
+        placeholder="Entrez votre email"
+      />
+      <Input
+        size="large"
+        style={styles.inputStyle}
+        secureTextEntry
+        placeholder="Entrez votre mot de passe"
+      />
+      <Button> Connectez vous</Button>
+    </View>
   </ScrollView>
 );
 
