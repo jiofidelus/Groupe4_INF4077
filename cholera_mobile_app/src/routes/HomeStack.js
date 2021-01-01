@@ -3,6 +3,7 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import React, {useState} from 'react';
+import AddPatient from '../components/AddPatient';
 // Screens
 import Dashboard from '../components/Dashboard';
 
@@ -25,6 +26,11 @@ const HomeStack = ({navigation, route}) => {
           name="Dashboard"
           options={{headerShown: false}}
           component={Dashboard}
+        />
+        <Stack.Screen
+          name="AddPatient"
+          options={{headerShown: false}}
+          component={AddPatient}
         />
       </Stack.Navigator>
     </React.Fragment>

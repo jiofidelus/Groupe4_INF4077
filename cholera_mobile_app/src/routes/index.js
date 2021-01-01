@@ -4,7 +4,9 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import React from 'react';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import LoadingScreen from '../common/LoadingScreen';
+import {navigate, navigationRef} from '../refs/navigationRef';
 import AuthStack from './AuthStack';
 import HomeTabs from './HomeTabs';
 
@@ -52,7 +54,7 @@ const Routes = (props) => {
       return <LoadingScreen />;
     } else {
       return (
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <Stack.Navigator
             headerMode="float"
             aninmation="fade"
@@ -67,6 +69,16 @@ const Routes = (props) => {
             />
             <Stack.Screen
               options={({route}) => ({
+                headerRight: () => (
+                  <MaterialIcons
+                    onPress={() => navigate('AddPatient')}
+                    style={{
+                      marginRight: 10,
+                    }}
+                    name="add-circle"
+                    size={24}
+                  />
+                ),
                 title: getHeaderTitle(route),
                 headerShown: shouldHeaderBeShown(route),
               })}

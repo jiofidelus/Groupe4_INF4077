@@ -1,9 +1,11 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {PATIENTS} from '../../data/patient';
 import CardStatus from '../common/CardStatus';
+import PatientList from './PatientList';
 
-export default function Dashboard() {
+const Dashboard = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={{flex: 1, margin: 10}}>
       <View
@@ -28,6 +30,9 @@ export default function Dashboard() {
           Listes des cas
         </Text>
       </View>
+      <PatientList navigation={navigation} items={PATIENTS} />
     </ScrollView>
   );
-}
+};
+
+export default Dashboard;
