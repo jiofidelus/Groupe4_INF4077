@@ -16,7 +16,7 @@ function getHeaderTitle(route) {
     : 'Home';
   switch (routeName) {
     case 'Home':
-      return 'Home';
+      return 'Acceuil';
     case 'Statistiques':
       return 'Statistiques';
     case 'Maps':
@@ -34,7 +34,7 @@ function shouldHeaderBeShown(route) {
     : 'Dashboard';
   switch (routeName) {
     case 'Dashboard':
-      return false;
+      return true;
     case 'Statistiques':
       return false;
     case 'Maps':
@@ -66,7 +66,10 @@ const Routes = (props) => {
               component={AuthStack}
             />
             <Stack.Screen
-              options={{headerShown: false}}
+              options={({route}) => ({
+                title: getHeaderTitle(route),
+                headerShown: shouldHeaderBeShown(route),
+              })}
               name="Home"
               component={HomeTabs}
             />
