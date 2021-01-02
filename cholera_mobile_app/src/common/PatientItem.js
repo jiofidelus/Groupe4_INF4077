@@ -16,7 +16,7 @@ const PatientItem = ({
   return (
     <TouchableOpacity
       key={id}
-      onPress={() => navigation.push('PatientDetails')}>
+      onPress={() => navigation.push('DetailsPatient')}>
       <View
         style={{
           display: 'flex',

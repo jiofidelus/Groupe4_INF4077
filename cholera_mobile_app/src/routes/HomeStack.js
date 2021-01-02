@@ -6,6 +6,7 @@ import React, {useState} from 'react';
 import AddPatient from '../components/AddPatient';
 // Screens
 import Dashboard from '../components/Dashboard';
+import PatientDetails from '../components/PatientDetails';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,11 @@ const HomeStack = ({navigation, route}) => {
           name="AddPatient"
           options={{headerShown: false, title: 'Enregister patient'}}
           component={AddPatient}
+        />
+        <Stack.Screen
+          name="DetailsPatient"
+          options={{headerShown: false, title: 'Imformations du patient'}}
+          component={PatientDetails}
         />
       </Stack.Navigator>
     </React.Fragment>

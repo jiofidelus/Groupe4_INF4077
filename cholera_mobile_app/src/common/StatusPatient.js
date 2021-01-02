@@ -22,7 +22,8 @@ export default function StatusPatient({status}) {
         padding: 2,
         borderRadius: 5,
       }}>
-      <Text style={{fontSize: 12, padding: 2, color: 'white'}}>
+      <Text
+        style={{fontSize: 12, padding: 2, color: 'white', textAlign: 'center'}}>
         {getStatus(status)}
       </Text>
     </View>
