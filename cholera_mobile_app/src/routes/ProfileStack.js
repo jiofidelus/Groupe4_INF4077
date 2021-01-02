@@ -3,8 +3,7 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import React, {useState} from 'react';
-// Screens
-import Dashboard from '../components/Dashboard';
+import Profile from '../components/Profile';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +23,7 @@ const ProfileStack = ({navigation, route}) => {
         <Stack.Screen
           name="Profile"
           options={{headerShown: false}}
-          component={Dashboard}
+          component={Profile}
         />
       </Stack.Navigator>
     </React.Fragment>

@@ -7,7 +7,8 @@
  */
 
 import React from 'react';
-import {Button, Input, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {TextInput} from 'react-native-paper';
 
 const LoginScreen = () => (
   <ScrollView
@@ -26,18 +27,18 @@ const LoginScreen = () => (
     </View>
     <View style={{flex: 2}}>
       <Text style={{fontSize: 16}}>Connectez vous a votre compte</Text>
-      <Input
+      <TextInput
         size="large"
         style={styles.inputStyle}
         placeholder="Entrez votre email"
       />
-      <Input
+      <TextInput
         size="large"
         style={styles.inputStyle}
         secureTextEntry
         placeholder="Entrez votre mot de passe"
       />
-      <Button> Connectez vous</Button>
+      {/* <Button> Connectez vous</Button> */}
     </View>
   </ScrollView>
 );
