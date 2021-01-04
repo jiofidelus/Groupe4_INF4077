@@ -1,13 +1,19 @@
-import React from 'react';
-import {Text, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import React, {useEffect} from 'react';
+import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
 import {Appbar} from 'react-native-paper';
-import {PATIENTS} from '../../data/patient';
+import {connect} from 'react-redux';
+import {fetchPatients} from '../actions';
 import AppBarCostum from '../common/AppBarCustom';
 import CardStatus from '../common/CardStatus';
 import PatientList from './PatientList';
 
-const Dashboard = ({navigation}) => {
+const Dashboard = ({navigation, ...props}) => {
+  const {patients, fetchPatients, loading} = props;
+
+  useEffect(() => {
+    fetchPatients();
+  }, [fetchPatients]);
+
   return (
     <>
       <AppBarCostum>
@@ -38,13 +44,22 @@ const Dashboard = ({navigation}) => {
         <View style={{marginVertical: 15, marginLeft: 5}}>
           <Text
             style={{fontSize: 18, fontFamily: 'Roboto', fontWeight: 'bold'}}>
-            Listes des cas
+            Listes des cas : {patients.total}
           </Text>
         </View>
-        <PatientList navigation={navigation} items={PATIENTS} />
+        {loading ? (
+          <ActivityIndicator size="large" color="#3A9679" />
+        ) : (
+          <PatientList navigation={navigation} items={patients.data} />
+        )}
       </ScrollView>
     </>
   );
 };
 
-export default Dashboard;
+const mapStateToProps = ({patientState}) => ({
+  loading: patientState.loading,
+  patients: patientState.patients,
+});
+
+export default connect(mapStateToProps, {fetchPatients})(Dashboard);
