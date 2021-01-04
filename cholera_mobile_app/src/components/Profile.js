@@ -1,11 +1,14 @@
 import React from 'react';
 import {ImageBackground, Platform, TouchableOpacity, View} from 'react-native';
 import {Appbar, Avatar, Divider, FAB} from 'react-native-paper';
+import {connect} from 'react-redux';
+import {logout} from '../actions';
 import AppBarCostum from '../common/AppBarCustom';
+import ButtonAction from '../common/ButtomAction';
 import {CommonStyle} from '../common/styles';
 import UserInfo from '../common/UserInfo';
 
-const Profile = ({navigation, profile}) => {
+const Profile = ({navigation, profile, logout}) => {
   const image = {
     uri: 'https://hero-bucket.s3.amazonaws.com/defaultuser/user.png',
   };
@@ -13,7 +16,6 @@ const Profile = ({navigation, profile}) => {
   return (
     <View>
       <AppBarCostum>
-        <Appbar.BackAction onPress={() => navigation.goBack()} />
         <Appbar.Content title="Compte" subtitle="Atemengue" />
       </AppBarCostum>
       <View style={CommonStyle.headerProfil}>
@@ -43,9 +45,12 @@ const Profile = ({navigation, profile}) => {
           userInfo="moafembe@gmail.com"
         />
         <Divider style={CommonStyle.userInfoMargin} />
+        <ButtonAction title="Deconnexion" onPress={logout} />
       </View>
     </View>
   );
 };
 
-export default Profile;
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, {logout})(Profile);

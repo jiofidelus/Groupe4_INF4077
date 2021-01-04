@@ -1,11 +1,13 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import React from 'react';
+import React, {useEffect} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import LoadingScreen from '../common/LoadingScreen';
+import {connect} from 'react-redux';
+import {TokenValidity} from '../actions';
 import {navigate, navigationRef} from '../refs/navigationRef';
 import AuthStack from './AuthStack';
 import HomeTabs from './HomeTabs';
@@ -51,24 +53,40 @@ function shouldHeaderBeShown(route) {
 }
 
 const Routes = (props) => {
-  const renderApp = () => {
-    if (false) {
-      return <LoadingScreen />;
+  const {isSignedIn, token} = props;
+
+  console.log(isSignedIn, 'THE SIGNIN');
+
+  const checkTokenValid = () => {
+    const token = AsyncStorage.getItem('token');
+    if (token) {
+      props.TokenValidity();
     } else {
-      return (
-        <NavigationContainer ref={navigationRef}>
-          <Stack.Navigator
-            headerMode="float"
-            aninmation="fade"
-            screenOptions={{
-              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            }}
-            initialRouteName="Auth">
+      localStorage.clear();
+    }
+  };
+
+  useEffect(() => {
+    checkTokenValid();
+  }, []);
+
+  const renderApp = () => {
+    return (
+      <NavigationContainer ref={navigationRef}>
+        <Stack.Navigator
+          headerMode="float"
+          aninmation="fade"
+          screenOptions={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+          initialRouteName="Auth">
+          {isSignedIn === false ? (
             <Stack.Screen
               options={{headerShown: false}}
               name="Auth"
               component={AuthStack}
             />
+          ) : (
             <Stack.Screen
               options={({route}) => ({
                 headerRight: () => (
@@ -87,13 +105,18 @@ const Routes = (props) => {
               name="Home"
               component={HomeTabs}
             />
-          </Stack.Navigator>
-        </NavigationContainer>
-      );
-    }
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
   };
 
   return renderApp();
 };
 
-export default Routes;
+const mapStateToProps = ({authState}) => ({
+  isSignedIn: authState.isSignedIn,
+  token: authState.token,
+});
+
+export default connect(mapStateToProps, {TokenValidity})(Routes);
