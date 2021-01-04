@@ -16,9 +16,9 @@ const CardStatus = ({
     <Card elevation={3}>
       <View
         style={[styles.cardStyle, {backgroundColor: colorView}, otherStyle]}>
-        <SvgUri width={64} height={64} fill={colorImage} source={source} />
+        <SvgUri width={32} height={32} fill={colorImage} source={source} />
         <Text style={{marginVertical: 5}}>{title}</Text>
-        <Text style={{fontSize: 30, fontWeight: '700'}}>{number}</Text>
+        <Text style={{fontSize: 20, fontWeight: '500'}}>{number}</Text>
       </View>
     </Card>
   </TouchableOpacity>
