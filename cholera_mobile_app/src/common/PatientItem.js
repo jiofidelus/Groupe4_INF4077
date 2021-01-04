@@ -3,20 +3,34 @@ import {Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Avatar} from 'react-native-paper';
 import ProgressCircle from 'react-native-progress-circle';
+import {BUCKET_URL, getRegion} from '../config';
 import StatusPatient from './StatusPatient';
 
 const PatientItem = ({
-  item: {names, id, picture, age, regionIdRegion, statusIdStatus, surnames},
+  item: {
+    names,
+    patientIdArchive,
+    idPatient,
+    picture,
+    old,
+    regionIdRegion,
+    statusIdStatus,
+    surnames,
+  },
   navigation,
 }) => {
   const percent = Math.floor(Math.random() * 11) * 10;
 
-  console.log(percent * 10);
+  console.log(names);
 
   return (
     <TouchableOpacity
-      key={id}
-      onPress={() => navigation.push('DetailsPatient')}>
+      key={idPatient}
+      onPress={() =>
+        navigation.push('DetailsPatient', {
+          idPatient,
+        })
+      }>
       <View
         style={{
           display: 'flex',
@@ -32,15 +46,22 @@ const PatientItem = ({
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Avatar.Image size={64} source={{uri: picture}} />
+          <Avatar.Image
+            size={64}
+            source={{
+              uri: picture
+                ? `${BUCKET_URL}/patients/${patientIdArchive}/${picture}`
+                : `${BUCKET_URL}/default/user.png`,
+            }}
+          />
         </View>
         <View style={{flex: 3}}>
           <Text style={{fontSize: 16, fontWeight: 'bold', backgroundColor: ''}}>
             {names} {surnames}
           </Text>
-          <Text style={{fontSize: 12}}>{age} ans </Text>
+          <Text style={{fontSize: 12}}>{old} ans </Text>
           <Text style={{fontSize: 12, marginVertical: 5}}>
-            {regionIdRegion}
+            {getRegion(regionIdRegion)}
           </Text>
           <View style={{marginTop: 10, display: 'flex', flexDirection: 'row'}}>
             <StatusPatient status={statusIdStatus} />

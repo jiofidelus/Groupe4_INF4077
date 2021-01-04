@@ -11,6 +11,7 @@ import {
   GET_STATISTIQUES,
   GET_STATISTIQUES_FAIL,
   GET_STATISTIQUES_SUCCESS,
+  GET_STATISTIQUE_ROUND_SUCCESS,
   SEND_MESSAGE_SUCCESS,
 } from '../actions/types';
 
@@ -24,6 +25,7 @@ const INITIAL_STATE = {
   message: '',
   statLoader: false,
   statistiques: [],
+  statsPosition: null,
   stats: {
     data: [],
     labels: [],
@@ -31,7 +33,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action);
   switch (action.type) {
     case FETCH_PATIENTS:
       return {...state, loading: true};
@@ -109,6 +110,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         statLoader: false,
+      };
+    case GET_STATISTIQUE_ROUND_SUCCESS:
+      return {
+        ...state,
+        statsPosition: action.payload,
       };
     default:
       return state;

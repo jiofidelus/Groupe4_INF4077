@@ -20,6 +20,7 @@ import {
   GET_STATISTIQUES,
   GET_STATISTIQUES_FAIL,
   GET_STATISTIQUES_SUCCESS,
+  GET_STATISTIQUE_ROUND_SUCCESS,
   LOGOUT,
   SEND_MESSAGE_SUCCESS,
 } from './types';
@@ -117,4 +118,11 @@ export const getStatOne = (_) => async (dispatch) => {
   }
 };
 
-export const getStateTwo = (_) => async (dispatch) => {};
+export const getStateTwo = (_) => async (dispatch) => {
+  try {
+    const response = await api.get('/patient/position');
+    dispatch({type: GET_STATISTIQUE_ROUND_SUCCESS, payload: response.data});
+  } catch (error) {
+    throw Error('Erreur' + error);
+  }
+};

@@ -2,16 +2,17 @@ import React, {useEffect} from 'react';
 import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import {connect} from 'react-redux';
-import {fetchPatients} from '../actions';
+import {fetchPatients, getStateTwo} from '../actions';
 import AppBarCostum from '../common/AppBarCustom';
 import CardStatus from '../common/CardStatus';
 import PatientList from './PatientList';
 
 const Dashboard = ({navigation, ...props}) => {
-  const {patients, fetchPatients, loading} = props;
+  const {patients, fetchPatients, loading, getStateTwo, statsPosition} = props;
 
   useEffect(() => {
     fetchPatients();
+    getStateTwo();
   }, [fetchPatients]);
 
   return (
@@ -23,7 +24,8 @@ const Dashboard = ({navigation, ...props}) => {
           onPress={() => navigation.navigate('AddPatient')}
         />
       </AppBarCostum>
-      <ScrollView contentContainerStyle={{flex: 1, margin: 10}}>
+      <ScrollView
+        contentContainerStyle={{flex: 1, margin: 10, paddingVertical: 20}}>
         <View
           style={{
             flexDirection: 'row',
@@ -32,12 +34,13 @@ const Dashboard = ({navigation, ...props}) => {
           <CardStatus
             title="CAS CONFIRMES"
             source={require('../../assets/svg/cholera.svg')}
-            number="200"
+            number={statsPosition ? statsPosition.declares : null}
           />
           <CardStatus
             title="CAS SUSPECTS"
             source={require('../../assets/svg/immunity.svg')}
             number="100"
+            number={statsPosition ? statsPosition.suspect : null}
           />
           <View />
         </View>
@@ -60,6 +63,9 @@ const Dashboard = ({navigation, ...props}) => {
 const mapStateToProps = ({patientState}) => ({
   loading: patientState.loading,
   patients: patientState.patients,
+  statsPosition: patientState.statsPosition,
 });
 
-export default connect(mapStateToProps, {fetchPatients})(Dashboard);
+export default connect(mapStateToProps, {fetchPatients, getStateTwo})(
+  Dashboard,
+);

@@ -79,7 +79,7 @@ const Routes = (props) => {
           screenOptions={{
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           }}
-          initialRouteName="Auth">
+          initialRouteName="Home">
           {isSignedIn === false ? (
             <Stack.Screen
               options={{headerShown: false}}

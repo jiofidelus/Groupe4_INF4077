@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
   Animated,
   ImageBackground,
   StyleSheet,
@@ -10,13 +11,20 @@ import {
 import {Avatar, Card, List, Modal, Portal, TextInput} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Material from 'react-native-vector-icons/MaterialIcons';
+import {connect} from 'react-redux';
+import {fetchPatient} from '../actions';
 import ButtonAction from '../common/ButtomAction';
 import {Colors} from '../common/Colors';
 import Dot from '../common/Dot';
 import StatusPatient from '../common/StatusPatient';
 import {CommonStyle} from '../common/styles';
+import {BUCKET_URL, getRegion} from '../config';
 
 const PatientDetails = (props) => {
+  const idPatient = props.route.params.idPatient;
+
+  const {fetchPatient, patient, loadindDetails} = props;
+
   const image = {
     uri: 'https://hero-bucket.s3.amazonaws.com/defaultuser/user.png',
   };
@@ -26,6 +34,10 @@ const PatientDetails = (props) => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
+
+  useEffect(() => {
+    fetchPatient(idPatient);
+  }, [idPatient, fetchPatient]);
 
   const ImageBackgroundInterpolate = animation.interpolate({
     inputRange: [0, 100],
@@ -65,7 +77,11 @@ const PatientDetails = (props) => {
   const renderImageBackground = (photo) => {
     return (
       <ImageBackground
-        source={image}
+        source={{
+          uri: patient
+            ? `${BUCKET_URL}/patients/${patient.patientIdArchive}/${patient.picture}`
+            : `${BUCKET_URL}/default/user.png`,
+        }}
         style={{width: '100%', height: '100%'}}
         blurRadius={Platform.OS === 'ios' ? 10 : 5}>
         <View style={{margin: 10}}>
@@ -75,11 +91,24 @@ const PatientDetails = (props) => {
         </View>
         <View style={CommonStyle.headerProfileContent}>
           <Animated.View style={OpacityStyle}>
-            <Avatar.Image size={100} source={image} />
+            <Avatar.Image
+              size={100}
+              source={{
+                uri: patient
+                  ? `${BUCKET_URL}/patients/${patient.patientIdArchive}/${patient.picture}`
+                  : `${BUCKET_URL}/default/user.png`,
+              }}
+            />
           </Animated.View>
           <Animated.View style={OpacityStyle}>
-            <Text style={styles.subTitle}>ATEMENGUE</Text>
-            <StatusPatient status={1} />
+            <Text style={styles.subTitle}>
+              {patient ? patient.names : ' '} {patient ? patient.surnames : ''}
+            </Text>
+            {patient ? (
+              <StatusPatient status={patient.statusIdStatus} />
+            ) : (
+              <Text></Text>
+            )}
           </Animated.View>
         </View>
       </ImageBackground>
@@ -124,174 +153,198 @@ const PatientDetails = (props) => {
           </View>
         </Modal>
       </Portal>
-      <Animated.ScrollView
-        contentContainerStyle={{paddingTop: 250}}
-        onScroll={Animated.event([
-          {
-            nativeEvent: {
-              contentOffset: {
-                y: animation,
+
+      {loadindDetails ? (
+        <ActivityIndicator color="red" />
+      ) : (
+        <Animated.ScrollView
+          contentContainerStyle={{paddingTop: 250}}
+          onScroll={Animated.event([
+            {
+              nativeEvent: {
+                contentOffset: {
+                  y: animation,
+                },
               },
             },
-          },
-        ])}>
-        <View style={{margin: 5}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 10,
-            }}>
+          ])}>
+          <View style={{margin: 5}}>
             <View
               style={{
-                justifyContent: 'center',
-                flex: 1,
-                alignItems: 'center',
-                borderRightWidth: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                padding: 10,
               }}>
-              <Text>Age</Text>
-              <Text style={{fontWeight: 'bold', fontSize: 17}}>27 ans</Text>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  flex: 1,
+                  alignItems: 'center',
+                  borderRightWidth: 1,
+                }}>
+                <Text>Age</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 17}}>
+                  {patient ? patient.old : ''} ans
+                </Text>
+              </View>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  flex: 1,
+                  alignItems: 'center',
+                  borderRightWidth: 1,
+                }}>
+                <Text>Poids</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 17}}>
+                  {patient ? patient.poids : ''} Kg
+                </Text>
+              </View>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flex: 1,
+                }}>
+                <Text>Ville</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 17}}>
+                  {patient ? getRegion(patient.regionIdRegion) : ''}
+                </Text>
+              </View>
             </View>
-            <View
-              style={{
-                justifyContent: 'center',
-                flex: 1,
-                alignItems: 'center',
-                borderRightWidth: 1,
-              }}>
-              <Text>Poids</Text>
-              <Text style={{fontWeight: 'bold', fontSize: 17}}>23 Kg</Text>
-            </View>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                flex: 1,
-              }}>
-              <Text>Ville</Text>
-              <Text style={{fontWeight: 'bold', fontSize: 17}}>CENTRE</Text>
-            </View>
-          </View>
-          <View>
-            <Card style={{margin: 5}}>
-              <Card.Title title="A propos" titleStyle={{fontSize: 20}} />
-              <Card.Content>
-                <View>
-                  <View />
-                  <View style={{marginVertical: 5}}>
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
-                      <View>
-                        <Icon name="clock-o" size={30} color={Colors.color0} />
-                      </View>
-                      <View style={{marginHorizontal: 10}}>
-                        <Text style={{fontSize: 14, fontWeight: 'bold'}}>
-                          Date d'admission
-                        </Text>
-                        <Text>11:30 a 14:50</Text>
+            <View>
+              <Card style={{margin: 5}}>
+                <Card.Title title="A propos" titleStyle={{fontSize: 20}} />
+                <Card.Content>
+                  <View>
+                    <View />
+                    <View style={{marginVertical: 5}}>
+                      <View style={{display: 'flex', flexDirection: 'row'}}>
+                        <View>
+                          <Icon
+                            name="clock-o"
+                            size={30}
+                            color={Colors.color0}
+                          />
+                        </View>
+                        <View style={{marginHorizontal: 10}}>
+                          <Text style={{fontSize: 14, fontWeight: 'bold'}}>
+                            Date d'admission
+                          </Text>
+                          <Text>{patient ? patient.admissionDate : ''}</Text>
+                        </View>
                       </View>
                     </View>
                   </View>
-                </View>
-              </Card.Content>
-            </Card>
-          </View>
+                </Card.Content>
+              </Card>
+            </View>
 
-          <View>
+            {patient.suivies.length > 0 && (
+              <View>
+                <Card style={{margin: 5}}>
+                  <Card.Title
+                    title="Suivie Medical"
+                    titleStyle={{fontSize: 20}}
+                  />
+                  <Card.Content>
+                    <View style={{marginVertical: 5}}>
+                      <View style={{display: 'flex', flexDirection: 'row'}}>
+                        <View>
+                          <Icon
+                            name="calendar"
+                            size={30}
+                            color={Colors.color0}
+                          />
+                        </View>
+                        <View style={{marginHorizontal: 10}}>
+                          <Text style={{fontSize: 14, fontWeight: 'bold'}}>
+                            Date et Heure
+                          </Text>
+                          <Text>11:30 a 14:50</Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={{marginVertical: 5}}>
+                      <View style={{display: 'flex', flexDirection: 'row'}}>
+                        <View>
+                          <Icon
+                            name="file-text-o"
+                            size={30}
+                            color={Colors.color0}
+                          />
+                        </View>
+                        <View style={{marginHorizontal: 10}}>
+                          <Text style={{fontSize: 14, fontWeight: 'bold'}}>
+                            description
+                          </Text>
+                          <Text>Tres malade</Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={{marginVertical: 5}}>
+                      <Text
+                        style={{
+                          marginVertical: 5,
+                          fontSize: 14,
+                          fontWeight: 'bold',
+                        }}>
+                        deshydratation
+                      </Text>
+                      <Dot level={3} />
+                    </View>
+                    <View style={{marginVertical: 5}}>
+                      <Text
+                        style={{
+                          marginVertical: 5,
+                          fontSize: 14,
+                          fontWeight: 'bold',
+                        }}>
+                        Niveau de selles
+                      </Text>
+                      <Dot level={2} />
+                    </View>
+                    <View style={{marginVertical: 5}}>
+                      <Text
+                        style={{
+                          marginVertical: 5,
+                          fontSize: 14,
+                          fontWeight: 'bold',
+                        }}>
+                        Niveau de vomissements
+                      </Text>
+                      <Dot level={4} />
+                    </View>
+                    <View style={{marginVertical: 5}}>
+                      <Text
+                        style={{
+                          marginVertical: 5,
+                          fontSize: 14,
+                          fontWeight: 'bold',
+                        }}>
+                        Niveau de diarhree
+                      </Text>
+                      <Dot level={4} />
+                    </View>
+                  </Card.Content>
+                </Card>
+              </View>
+            )}
             <Card style={{margin: 5}}>
-              <Card.Title title="Suivie Medical" titleStyle={{fontSize: 20}} />
-              <Card.Content>
-                <View style={{marginVertical: 5}}>
-                  <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <View>
-                      <Icon name="calendar" size={30} color={Colors.color0} />
-                    </View>
-                    <View style={{marginHorizontal: 10}}>
-                      <Text style={{fontSize: 14, fontWeight: 'bold'}}>
-                        Date et Heure
-                      </Text>
-                      <Text>11:30 a 14:50</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={{marginVertical: 5}}>
-                  <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <View>
-                      <Icon
-                        name="file-text-o"
-                        size={30}
-                        color={Colors.color0}
-                      />
-                    </View>
-                    <View style={{marginHorizontal: 10}}>
-                      <Text style={{fontSize: 14, fontWeight: 'bold'}}>
-                        description
-                      </Text>
-                      <Text>Tres malade</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={{marginVertical: 5}}>
-                  <Text
-                    style={{
-                      marginVertical: 5,
-                      fontSize: 14,
-                      fontWeight: 'bold',
-                    }}>
-                    deshydratation
-                  </Text>
-                  <Dot level={3} />
-                </View>
-                <View style={{marginVertical: 5}}>
-                  <Text
-                    style={{
-                      marginVertical: 5,
-                      fontSize: 14,
-                      fontWeight: 'bold',
-                    }}>
-                    Niveau de selles
-                  </Text>
-                  <Dot level={2} />
-                </View>
-                <View style={{marginVertical: 5}}>
-                  <Text
-                    style={{
-                      marginVertical: 5,
-                      fontSize: 14,
-                      fontWeight: 'bold',
-                    }}>
-                    Niveau de vomissements
-                  </Text>
-                  <Dot level={4} />
-                </View>
-                <View style={{marginVertical: 5}}>
-                  <Text
-                    style={{
-                      marginVertical: 5,
-                      fontSize: 14,
-                      fontWeight: 'bold',
-                    }}>
-                    Niveau de diarhree
-                  </Text>
-                  <Dot level={4} />
-                </View>
-              </Card.Content>
+              <List.Item
+                onPress={showModal}
+                title="Envoyer Message"
+                titleStyle={{
+                  fontWeight: 'bold',
+                }}
+                description={() => renderContact(['694169369'])}
+                left={(props) => (
+                  <List.Icon {...props} icon="phone" color={Colors.color0} />
+                )}
+              />
             </Card>
           </View>
-          <Card style={{margin: 5}}>
-            <List.Item
-              onPress={showModal}
-              title="Envoyer Message"
-              titleStyle={{
-                fontWeight: 'bold',
-              }}
-              description={() => renderContact(['694169369'])}
-              left={(props) => (
-                <List.Icon {...props} icon="phone" color={Colors.color0} />
-              )}
-            />
-          </Card>
-        </View>
-      </Animated.ScrollView>
+        </Animated.ScrollView>
+      )}
       <Animated.View style={[styles.header, headerStyle]}>
         {renderImageBackground(image)}
       </Animated.View>
@@ -335,4 +388,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PatientDetails;
+const mapStateToProps = ({patientState}) => ({
+  patient: patientState.patient,
+  loadindDetails: patientState.loadindDetails,
+});
+
+export default connect(mapStateToProps, {fetchPatient})(PatientDetails);
