@@ -12,6 +12,9 @@ import {
   GET_STATISTIQUES,
   GET_STATISTIQUES_FAIL,
   GET_STATISTIQUES_SUCCESS,
+  GET_STATISTIQUE_ROUND,
+  GET_STATISTIQUE_ROUND_FAIL,
+  GET_STATISTIQUE_ROUND_SUCCESS,
   SEND_MESSAGE_SUCCESS,
 } from "./type";
 
@@ -66,4 +69,12 @@ export const getStatOne = (_) => async (dispatch) => {
   }
 };
 
-export const getStateTwo = (_) => async (dispatch) => {};
+export const getStateTwo = (_) => async (dispatch) => {
+  dispatch({ type: GET_STATISTIQUE_ROUND });
+  try {
+    const response = await api.get("/patient/position");
+    dispatch({ type: GET_STATISTIQUE_ROUND_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: GET_STATISTIQUE_ROUND_FAIL, payload: error });
+  }
+};

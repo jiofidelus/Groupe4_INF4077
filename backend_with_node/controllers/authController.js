@@ -100,5 +100,7 @@ exports.verifyToken = async (req, res, next) => {
     } catch (error) {
       return res.status(401).send(error.message);
     }
+  } else {
+    return res.status(500).send('erreur serveur');
   }
 };

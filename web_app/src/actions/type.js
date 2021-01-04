@@ -39,3 +39,5 @@ export const GET_STATISTIQUES_SUCCESS = "get_statistiques_success";
 export const GET_STATISTIQUES_FAIL = "get_statistques_fail";
 
 export const GET_STATISTIQUE_ROUND = "get_statistique_round";
+export const GET_STATISTIQUE_ROUND_SUCCESS = "get_statistique_round_success";
+export const GET_STATISTIQUE_ROUND_FAIL = "get_statistique_round_success_fail";

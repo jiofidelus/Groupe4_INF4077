@@ -12,7 +12,7 @@ import {Avatar, Card, List, Modal, Portal, TextInput} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Material from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
-import {fetchPatient} from '../actions';
+import {fetchPatient, sendMessage} from '../actions';
 import ButtonAction from '../common/ButtomAction';
 import {Colors} from '../common/Colors';
 import Dot from '../common/Dot';
@@ -23,7 +23,7 @@ import {BUCKET_URL, getRegion} from '../config';
 const PatientDetails = (props) => {
   const idPatient = props.route.params.idPatient;
 
-  const {fetchPatient, patient, loadindDetails} = props;
+  const {fetchPatient, patient, loadindDetails, sendMessage} = props;
 
   const image = {
     uri: 'https://hero-bucket.s3.amazonaws.com/defaultuser/user.png',
@@ -34,6 +34,22 @@ const PatientDetails = (props) => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
+
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const onSubmitMessage = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    sendMessage({phone, message}).then((_) => {
+      setMessage('');
+      hideModal();
+      setPhone('');
+      setMessage('');
+      setLoading(false);
+    });
+  };
 
   useEffect(() => {
     fetchPatient(idPatient);
@@ -135,8 +151,8 @@ const PatientDetails = (props) => {
               <TextInput
                 autoCapitalize={'none'}
                 autoCorrect={false}
-                value="Telephones"
-                onChangeText={(name) => console.log(name)}
+                value={phone}
+                onChangeText={(phone) => setPhone(phone)}
               />
             </View>
             <View style={{marginVertical: 5}}>
@@ -145,11 +161,16 @@ const PatientDetails = (props) => {
                 autoCorrect={false}
                 multiline
                 numberOfLines={5}
-                value="Message"
-                onChangeText={(name) => console.log(name)}
+                value={message}
+                onChangeText={(message) => setMessage(message)}
               />
             </View>
-            <ButtonAction title="Envoyer" icon="send" />
+            <ButtonAction
+              onPress={onSubmitMessage}
+              loading={loading}
+              title="Envoyer"
+              icon="send"
+            />
           </View>
         </Modal>
       </Portal>
@@ -239,7 +260,7 @@ const PatientDetails = (props) => {
               </Card>
             </View>
 
-            {patient.suivies.length > 0 && (
+            {patient && patient.suivies.length > 0 && (
               <View>
                 <Card style={{margin: 5}}>
                   <Card.Title
@@ -393,4 +414,6 @@ const mapStateToProps = ({patientState}) => ({
   loadindDetails: patientState.loadindDetails,
 });
 
-export default connect(mapStateToProps, {fetchPatient})(PatientDetails);
+export default connect(mapStateToProps, {fetchPatient, sendMessage})(
+  PatientDetails,
+);
