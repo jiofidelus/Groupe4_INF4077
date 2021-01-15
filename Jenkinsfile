@@ -9,7 +9,7 @@ pipeline {
             }
         }
         stage('Docker Build') {
-            steps: {
+            steps {
                 sh (script: 'docker images -a')
                 sh (script: "docker build -t node_cholera_backend .")
                 sh (script: 'docker images -a')
